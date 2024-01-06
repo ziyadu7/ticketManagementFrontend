@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import AdminLogin from '../pages/admin/adminLogin'
 import StudentList from '../pages/admin/studentList'
 import Home from '../pages/admin/home'
+import SubjectsPage from '../pages/admin/subjectsPage'
 
 function AdminRoute() {
   const {token} = useSelector(state=>state.Admin)
@@ -13,6 +14,7 @@ function AdminRoute() {
                 <Route path='/login' element={<AdminLogin/>} />
                 <Route path='/' element={token?<Home/>:<Navigate to={'/login'}/>} />
                 <Route path='/students' element={token?<StudentList/>:<Navigate to={'/login'}/>} />
+                <Route path='/subjects' element={token?<SubjectsPage/>:<Navigate to={'/login'}/>} />
                 {/* <Route path='/*' element={<NotFound />} /> */}
             </Routes>
         </div>
