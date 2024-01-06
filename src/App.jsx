@@ -1,12 +1,13 @@
 import {BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom'
-import TicketsPage from './pages/ticketsPage'
+import StudentRoute from './routes/studentRoute'
+import AdminRoute from './routes/adminRoute'
 
 function App() {
-
   return (
    <Router>
     <Routes>
-      <Route path='/' element={<TicketsPage/>}/>
+      <Route path='/admin/*' element={<AdminRoute/>}/>
+      <Route path='/*' element={<StudentRoute/>}/>
     </Routes>
    </Router>
   )
