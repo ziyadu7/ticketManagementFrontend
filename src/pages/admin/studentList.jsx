@@ -7,25 +7,32 @@ import StudentsListTable from '../../components/admin/studentsListTable'
 
 function StudentList() {
 
-    const [students,setStudents] = useState([])
-    const [refresh,setRefresh] = useState(false)
-    const {token} = useSelector(state=>state.Admin)
-    useEffect(()=>{
-        axiosInstance.get('/admin/getStudents',{headers:{
-            authorization: `Bearer ${token}`
-        }}).then(res=>{
+    const [students, setStudents] = useState([])
+    const [refresh, setRefresh] = useState(false)
+    const { token } = useSelector(state => state.Admin)
+    useEffect(() => {
+        axiosInstance.get('/admin/getStudents', {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }).then(res => {
             setStudents(res?.data?.students)
-        }).catch(err=>{
+        }).catch(err => {
             errorFunction(err)
         })
-    },[refresh])
+    }, [refresh])
 
-    const handleAction = ()=>{
+    const handleAction = () => {
 
     }
-  return (
-    <div><AdminNavbar/><StudentsListTable students={students} handleAction={handleAction}/></div>
-  )
+    return (
+        <div>
+            <AdminNavbar />
+            <div className='-z-50 px-16 w-full'>
+                <StudentsListTable students={students} handleAction={handleAction} />
+            </div>
+        </div>
+    )
 }
 
 export default StudentList

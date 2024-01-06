@@ -2,7 +2,7 @@ import React from 'react'
 
 function StudentsListTable({ students, handleAction }) {
     return (
-        <div className="relative overflow-x-auto">
+        <div className="overflow-x-auto">
             <table className="w-full text-sm text-left rtl:text-right text-gray-50">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
