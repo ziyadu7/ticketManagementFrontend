@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axiosInstance from '../../api/axios'
 import toast from 'react-hot-toast'
+import errorFunction from '../../helpers/errorHandling'
 
 function Register() {
     const [name,setName] = useState('')
@@ -25,11 +26,7 @@ function Register() {
                 toast.success(res?.data?.message)
                 navigate('/login')
             }).catch(err=>{
-                if(err?.response?.data?.errMsg){
-                    toast.error(err?.response?.data?.errMsg)
-                }else if(err.message){
-                    toast.error(err.message)
-                }
+                errorFunction(err)
             })
         }
     }
@@ -57,7 +54,7 @@ function Register() {
                         <div className='felx justify-center items-center'>
                             <small className='text-red-600 text-center flex justify-center'>{err}</small>
                         </div>
-                        <p className='text-center text-blue-600 cursor-pointer' onClick={() => navigate('/student/login')}>Alerady have account ?</p>
+                        <p className='text-center text-blue-600 cursor-pointer' onClick={() => navigate('/login')}>Alerady have account ?</p>
                         <button
                             type="button"
                             onClick={() => confirmRegister()}

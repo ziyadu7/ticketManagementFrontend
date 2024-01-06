@@ -4,6 +4,7 @@ import axiosInstance from '../../api/axios'
 import { useDispatch } from 'react-redux'
 import { studentLogin } from '../../store/slice/student'
 import { useNavigate } from 'react-router-dom'
+import errorFunction from '../../helpers/errorHandling'
 
 function StudentLogin() {
     
@@ -23,6 +24,8 @@ function StudentLogin() {
             axiosInstance.post('/login',{name,password}).then(res=>{
                 dispatch(studentLogin({name:res?.data?.name,role:res?.data?.role,token:res?.data?.token}))
                 navigate('/')
+            }).catch(err=>{
+                errorFunction(err)
             })
         }
     }
