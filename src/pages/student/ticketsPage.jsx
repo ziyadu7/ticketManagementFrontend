@@ -1,5 +1,5 @@
 import React from 'react'
-import TicketListTable from '../../components/ticketListTable'
+import TicketListTable from '../../components/student/ticketListTable'
 import { AiFillPlusCircle } from "react-icons/ai";
 
 function TicketsPage() {
