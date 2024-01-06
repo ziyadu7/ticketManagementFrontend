@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import errorFunction from '../../helpers/errorHandling'
 import AdminNavbar from '../../components/admin/adminNavbar'
 import StudentsListTable from '../../components/admin/studentsListTable'
+import toast from 'react-hot-toast'
 
 function StudentList() {
 
@@ -22,8 +23,17 @@ function StudentList() {
         })
     }, [refresh])
 
-    const handleAction = () => {
-
+    const handleAction = (studentId) => {
+        axiosInstance.patch('/admin/acceptStudent', { studentId }, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }).then(res=>{
+            toast.success(res?.data?.message)
+            setRefresh(!refresh)
+        }).catch(err=>{
+            errorFunction(err)
+        })
     }
     return (
         <div>

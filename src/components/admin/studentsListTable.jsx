@@ -28,7 +28,7 @@ function StudentsListTable({ students, handleAction }) {
                                 {student?.name}
                             </td>
                             <td className="px-6 py-4">
-                                {student?.isAccepted ? <button disabled>Accepted</button> : <button onClick={() => handleAction(students.id)}>Accept</button>}
+                                {student?.isAccepted ? <button className='rounded-sm bg-slate-400 px-3' disabled>Accepted</button> : <button className='rounded-sm px-3 bg-green-600' onClick={() => handleAction(student?.id)}>Accept</button>}
                             </td>
                         </tr>
                         )
