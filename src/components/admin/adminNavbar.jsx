@@ -17,7 +17,7 @@ function AdminNavbar() {
       <h1 className='w-full text-3xl font-bold text-slate-600'>Admin</h1>
     <div className='w-full justify-center gap-5 md:flex hidden'>
       <p onClick={()=>navigate('/admin/students')} className={`hover:cursor-pointer hover:bg-slate-600 rounded-sm px-3 py-1 ${location.pathname=='/admin/students'? 'bg-slate-600':''}`}>Students</p>
-      <p onClick={()=>navigate('/admin/home')} className={`hover:cursor-pointer hover:bg-slate-600 rounded-sm px-3 py-1 ${location.pathname=='/admin/home'? 'bg-slate-600':''}`}>Assigned Tickets</p>
+      <p onClick={()=>navigate('/admin')} className={`hover:cursor-pointer hover:bg-slate-600 rounded-sm px-3 py-1 ${location.pathname=='/admin'? 'bg-slate-600':''}`}>Assigned Tickets</p>
     </div>
 
       <div onClick={handleNav} className='block md:hidden'>

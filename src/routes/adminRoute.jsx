@@ -2,8 +2,8 @@ import React from 'react'
 import { Routes, Route, Navigate} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import AdminLogin from '../pages/admin/adminLogin'
-import Tickets from '../components/admin/tickets'
 import StudentList from '../pages/admin/studentList'
+import Home from '../pages/admin/home'
 
 function AdminRoute() {
   const {token} = useSelector(state=>state.Admin)
@@ -11,7 +11,7 @@ function AdminRoute() {
         <div>
             <Routes>
                 <Route path='/login' element={<AdminLogin/>} />
-                <Route path='/' element={token?<Tickets/>:<Navigate to={'/login'}/>} />
+                <Route path='/' element={token?<Home/>:<Navigate to={'/login'}/>} />
                 <Route path='/students' element={token?<StudentList/>:<Navigate to={'/login'}/>} />
                 {/* <Route path='/*' element={<NotFound />} /> */}
             </Routes>

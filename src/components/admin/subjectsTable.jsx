@@ -1,8 +1,8 @@
 import React from 'react'
 
-function StudentsListTable({ students, handleAction }) {
-    return (
-        <div className="overflow-x-auto">
+function SubjectsTable({subjects,handleAction}) {
+  return (
+    <div className="overflow-x-auto">
             <table className="w-full text-sm text-left rtl:text-right text-gray-50">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
@@ -13,22 +13,28 @@ function StudentsListTable({ students, handleAction }) {
                             Name
                         </th>
                         <th scope="col" className="px-6 py-3">
+                            Priority
+                        </th>
+                        <th scope="col" className="px-6 py-3">
                             Action
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {students?.length >= 0 ? students.map((student => {
+                    {subjects?.length >= 0 ? subjects.map((subject => {
                         return (
                             <tr className="bg-white border-b text-black">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {student?.id}
+                                    {subject?.id}
                                 </th>
                                 <td className="px-6 py-4">
-                                    {student?.name}
+                                    {subject?.name}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {student?.isAccepted ? <button className='rounded-sm bg-slate-400 px-3' disabled>Accepted</button> : <button className='rounded-sm px-3 bg-green-600' onClick={() => handleAction(student?.id)}>Accept</button>}
+                                    {subject?.priority}
+                                </td>
+                                <td className="px-6 py-4">
+                                    <button className='rounded-sm px-3 bg-red-600' onClick={() => handleAction(subject?.id)}>Delete</button>
                                 </td>
                             </tr>
                         )
@@ -37,7 +43,7 @@ function StudentsListTable({ students, handleAction }) {
                 </tbody>
             </table>
         </div>
-    )
+  )
 }
 
-export default StudentsListTable
+export default SubjectsTable

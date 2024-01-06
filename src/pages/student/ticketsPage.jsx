@@ -1,13 +1,23 @@
 import React from 'react'
 import TicketListTable from '../../components/student/ticketListTable'
 import { AiFillPlusCircle } from "react-icons/ai";
+import { useDispatch } from 'react-redux';
+import { studentLogout } from '../../store/slice/student';
 
 function TicketsPage() {
+
+    const dispatch = useDispatch()
+    const logout = ()=>{
+        dispatch(studentLogout())
+    }
     return (
         <div>
             <div className='flex justify-between p-2'>
                 <p className='font-semibold'>Manage Tickets</p>
+                <div className='flex gap-2'>
+                <button onClick={()=>logout()} className='px-1 py-1 bg-red-500 flex rounded-sm text-white'>Logout</button>
                 <button className='px-1 py-1 bg-blue-500 flex rounded-sm text-white'><AiFillPlusCircle className='mt-1 me-1' />Add Ticket</button>
+                </div>
             </div>
             <div>
                 <div className="flex mb-3 items-center p-4">
