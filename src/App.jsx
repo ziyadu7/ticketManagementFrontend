@@ -1,10 +1,14 @@
+import {BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom'
+import TicketsPage from './pages/ticketsPage'
 
 function App() {
 
   return (
-      <div>
-      <h1>HELLO</h1>
-      </div>
+   <Router>
+    <Routes>
+      <Route path='/' element={<TicketsPage/>}/>
+    </Routes>
+   </Router>
   )
 }
 
