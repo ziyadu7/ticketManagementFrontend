@@ -3,7 +3,7 @@ import React from 'react'
 function TicketListTable({ tickets, setTicketDetails, setTicket }) {
 
     return (
-        <div className="relative overflow-x-auto">
+        <div className="relative overflow-x-auto md:mx-5 sm:mx-3 mx-1">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
