@@ -65,7 +65,7 @@ function TicketListTable({ tickets }) {
                                     {ticket?.dueDate ? ticket?.dueDate?.createdDate.slice(0,10) : "Didn't completed"}
                                 </td>
                                 <td className="px-6 py-4">
-                                    $2999
+                                    <button className='px-1 py-1 bg-blue-500 flex rounded-sm text-white'>View</button>
                                 </td>
                             </tr>
                         )
