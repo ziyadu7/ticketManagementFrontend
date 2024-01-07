@@ -1,6 +1,6 @@
 import React from 'react'
 
-function TicketListTable({ tickets, setTicketDetails,setTicket }) {
+function TicketListTable({ tickets, setTicketDetails, setTicket }) {
 
     return (
         <div className="relative overflow-x-auto">
@@ -53,22 +53,22 @@ function TicketListTable({ tickets, setTicketDetails,setTicket }) {
                                     {ticket?.assigneeAdmin?.name}
                                 </td>
                                 <td className="px-6 py-4">
-                                   <p className={`px-2  font-medium rounded-sm text-center ${ ticket?.ticketSubject?.priority=='high'?"bg-red-300 text-red-600":ticket?.ticketSubject?.priority=='medium'?'bg-yellow-400 text-yellow-600':'bg-slate-200 text-slate-700'}`}> {ticket?.subject ? ticket?.ticketSubject?.priority : 'Low'}</p>
+                                    <p className={`px-2  font-medium rounded-sm text-center ${ticket?.ticketSubject?.priority == 'high' ? "bg-red-300 text-red-600" : ticket?.ticketSubject?.priority == 'medium' ? 'bg-yellow-400 text-yellow-600' : 'bg-slate-200 text-slate-700'}`}> {ticket?.subject ? ticket?.ticketSubject?.priority : 'Low'}</p>
                                 </td>
                                 <td className={`px-6 py-4`}>
-                                    <p className={`px-2  text-white font-medium rounded-sm text-center ${ticket?.status=='Pending'?"bg-yellow-400":ticket?.status=='Closed'?'bg-slate-800':ticket?.status=='Open'?'bg-teal-500':ticket?.status=='Deleted'?'bg-red-500':''}`}>{ticket?.status}</p>
+                                    <p className={`px-2  text-white font-medium rounded-sm text-center ${ticket?.status == 'Pending' ? "bg-yellow-400" : ticket?.status == 'Closed' ? 'bg-slate-800' : ticket?.status == 'Open' ? 'bg-teal-500' : ticket?.status == 'Deleted' ? 'bg-red-500' : ''}`}>{ticket?.status}</p>
                                 </td>
                                 <td className="px-6 py-4">
                                     {ticket?.createdDate.slice(0, 10)}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {ticket?.dueDate ? ticket?.dueDate?.createdDate.slice(0, 10) : "Didn't completed"}
+                                    {ticket?.dueDate ? ticket?.dueDate?.slice(0, 10) : "Didn't completed"}
                                 </td>
                                 <td className="px-6 py-4">
-                                    <button onClick={() => {
+                                    {ticket?.status == 'Deleted' ? '...' : <button onClick={() => {
                                         setTicket(ticket)
                                         setTicketDetails(true)
-                                    }} className='px-1 py-1 bg-blue-500 flex rounded-sm text-white'>View</button>
+                                    }} className='px-1 py-1 bg-blue-500 flex rounded-sm text-white'>View</button>}
                                 </td>
                             </tr>
                         )

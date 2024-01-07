@@ -29,7 +29,7 @@ function Home() {
   return (
     <div><AdminNavbar />{ticketDetails ?
       <div className='bg-slate-100 min-h-screen'>
-        <TicketDetailsAdmin ticket={ticket} setTicketDetails={setTicketDetails} />
+        <TicketDetailsAdmin refresh={refresh} setRefresh={setRefresh} ticket={ticket} setTicketDetails={setTicketDetails} />
       </div> : <TicketListTable tickets={tickets} setTicketDetails={setTicketDetails} setTicket={setTicket} />}</div>
   )
 }
