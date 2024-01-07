@@ -45,6 +45,10 @@ function SubjectsPage() {
         }
     }
 
+    function deleteSubject(subjectId){
+        toast.success(subjectId);
+    }
+
     return (
         <div>
             <AdminNavbar />
@@ -117,7 +121,7 @@ function SubjectsPage() {
                         </div>
                     </div>
                 </div>
-                <SubjectsTable subjects={subjects} />
+                <SubjectsTable subjects={subjects} handleAction={deleteSubject} />
             </div>
         </div>
     )
