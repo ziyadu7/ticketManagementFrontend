@@ -1,10 +1,32 @@
-import React from 'react'
-import Tickets from '../../components/admin/tickets'
+import React, { useEffect, useState } from 'react'
 import AdminNavbar from '../../components/admin/adminNavbar'
+import TicketListTable from '../../components/ticketListTable'
+import { useSelector } from 'react-redux'
+import errorFunction from '../../helpers/errorHandling'
+import axiosInstance from '../../api/axios'
 
 function Home() {
+
+  const [tickets, setTickets] = useState([])
+  const [refresh, setRefresh] = useState(false)
+  const [ticket, setTicket] = useState('')
+  const [ticketDetails,setTicketDetails] = useState(false)
+
+  const { token } = useSelector(state => state.Admin)
+  useEffect(() => {
+    axiosInstance.get('/admin/getTickets', {
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+    }).then(res => {
+      setTickets(res?.data?.tickets)
+    }).catch(err => {
+      errorFunction(err)
+    })
+  }, [refresh])
+
   return (
-    <div><AdminNavbar/><Tickets/></div>
+    <div><AdminNavbar />{ticketDetails?'':<TicketListTable tickets={tickets}  setTicketDetails={setTicketDetails} setTicket={setTicket} />}</div>
   )
 }
 

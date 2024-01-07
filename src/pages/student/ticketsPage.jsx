@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import TicketListTable from '../../components/student/ticketListTable'
+import TicketListTable from '../../components/ticketListTable'
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import { studentLogout } from '../../store/slice/student';
