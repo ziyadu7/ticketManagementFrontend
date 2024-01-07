@@ -4,13 +4,14 @@ import TicketListTable from '../../components/ticketListTable'
 import { useSelector } from 'react-redux'
 import errorFunction from '../../helpers/errorHandling'
 import axiosInstance from '../../api/axios'
+import TicketDetailsAdmin from '../../components/admin/ticketDetailsAdmin'
 
 function Home() {
 
   const [tickets, setTickets] = useState([])
   const [refresh, setRefresh] = useState(false)
   const [ticket, setTicket] = useState('')
-  const [ticketDetails,setTicketDetails] = useState(false)
+  const [ticketDetails, setTicketDetails] = useState(false)
 
   const { token } = useSelector(state => state.Admin)
   useEffect(() => {
@@ -26,7 +27,10 @@ function Home() {
   }, [refresh])
 
   return (
-    <div><AdminNavbar />{ticketDetails?'':<TicketListTable tickets={tickets}  setTicketDetails={setTicketDetails} setTicket={setTicket} />}</div>
+    <div><AdminNavbar />{ticketDetails ?
+      <div className='bg-slate-100 min-h-screen'>
+        <TicketDetailsAdmin ticket={ticket} setTicketDetails={setTicketDetails} />
+      </div> : <TicketListTable tickets={tickets} setTicketDetails={setTicketDetails} setTicket={setTicket} />}</div>
   )
 }
 
