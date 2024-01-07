@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { adminLogout } from '../../store/slice/admin';
 
 function AdminNavbar() {
 
     const [nav, setNav] = useState(false);
+    const dispatch = useDispatch()
     const location = useLocation()
     const navigate = useNavigate()
     const handleNav = () => {
       setNav(!nav);
     };
+
+    const logout = ()=>{
+      dispatch(adminLogout())
+      navigate('/admin/login')
+    }
 
   return (
     <div className=' flex justify-between bg-slate-400 z-50 items-center h-24 max-w-full mx-auto px-4 text-black'>
@@ -19,6 +27,7 @@ function AdminNavbar() {
       <p onClick={()=>navigate('/admin/students')} className={`hover:cursor-pointer hover:bg-slate-600 rounded-sm px-3 py-1 ${location.pathname=='/admin/students'? 'bg-slate-600':''}`}>Students</p>
       <p onClick={()=>navigate('/admin/subjects')} className={`hover:cursor-pointer hover:bg-slate-600 rounded-sm px-3 py-1 ${location.pathname=='/admin/subjects'? 'bg-slate-600':''}`}>Subjects</p>
       <p onClick={()=>navigate('/admin')} className={`hover:cursor-pointer hover:bg-slate-600 rounded-sm px-3 py-1 ${location.pathname=='/admin'? 'bg-slate-600':''}`}>Assigned Tickets</p>
+      <p onClick={()=>{logout()}} className={`hover:cursor-pointer bg-black text-white rounded-sm px-3 py-1`}>Logout</p>
     </div>
 
       <div onClick={handleNav} className='block md:hidden'>
