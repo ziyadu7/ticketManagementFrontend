@@ -1,6 +1,6 @@
 import React from 'react'
 
-function TicketListTable() {
+function TicketListTable({ tickets }) {
     return (
         <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -36,35 +36,40 @@ function TicketListTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple MacBook Pro 17"
-                        </th>
-                        <td className="px-6 py-4">
-                            Silver
-                        </td>
-                        <td className="px-6 py-4">
-                            Laptop
-                        </td>
-                        <td className="px-6 py-4">
-                            $2999
-                        </td>
-                        <td className="px-6 py-4">
-                            $2999
-                        </td>
-                        <td className="px-6 py-4">
-                            $2999
-                        </td>
-                        <td className="px-6 py-4">
-                            $2999
-                        </td>
-                        <td className="px-6 py-4">
-                            $2999
-                        </td>
-                        <td className="px-6 py-4">
-                            $2999
-                        </td>
-                    </tr>
+                    {tickets?.map(ticket => {
+                        return (
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {ticket?.id}
+                                </th>
+                                <td className="px-6 py-4">
+                                    {ticket?.requestedByStudent?.name}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {ticket?.subject ? ticket?.ticketSubject?.subject : 'Other'}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {ticket?.assigneeAdmin?.name}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {ticket?.subject ? ticket?.ticketSubject?.priority : 'Low'}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {ticket?.status}
+
+                                </td>
+                                <td className="px-6 py-4">
+                                    {ticket?.createdDate.slice(0,10)}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {ticket?.dueDate ? ticket?.dueDate?.createdDate.slice(0,10) : "Didn't completed"}
+                                </td>
+                                <td className="px-6 py-4">
+                                    $2999
+                                </td>
+                            </tr>
+                        )
+                    })}
                 </tbody>
             </table></div>
     )

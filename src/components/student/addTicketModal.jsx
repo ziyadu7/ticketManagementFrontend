@@ -9,10 +9,9 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
     const [subjects, setSubjects] = useState([])
     const [assignees, setAssignees] = useState([])
 
-    const [subject,setSubject] = useState('')
-    const [assignee,setAssignee] = useState('')
+    const [subject,setSubject] = useState(0)
+    const [assignee,setAssignee] = useState(0)
     const [description,setDescription] = useState('')
-    const [dueDate,setDueDate] = useState('')
     const [err,setErr] = useState('')
 
     const { token } = useSelector(state => state.Student)
@@ -34,26 +33,32 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
             }
         }).then(res => {
             setAssignees(res?.data?.admins)
+            setAssignee(res?.data?.admins[0]?.id)
         }).catch(err => {
             errorFunction(err)
         })
     }, [])
 
     function addTicket (){
-        if(subject==''||assignee==''||description.trim().length==0||dueDate==''){
+        console.log(subject,assignee,description);
+        if(subject===''||assignee===0||description.trim().length==0){
             setErr('Fill all the fields')
-        }else if(dueDate<=new Date()){
-            setErr('Enter Valid Date')
         }else {
-            axiosInstance.post('/addTicket',{subject,assignee,description,dueDate},{
+            axiosInstance.post('/addTicket',{subject,assignee,description},{
                 headers: {
                     authorization: `Bearer ${token}`
                 }
             }).then(res=>{
+                setAssignee(0)
+                setDescription('')
+                setSubject(0)
                 toast.success(res?.data?.message)
                 setRefresh(!refresh)
                 setShowModal(false)
             }).catch(err=>{
+                setAssignee(0)
+                setDescription('')
+                setSubject(0)
                 errorFunction(err)
             })
         }
@@ -92,7 +97,8 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
                                                     Subject
                                                 </label>
                                                 <div className="relative">
-                                                    <select onChange={(e)=>setSubject(e.target.value)} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                                                    <select onChange={(e)=>{setSubject(e.target.value)
+                                                    console.log(e.target.value)}} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                                         <option value={0}>Other</option>
                                                         {subjects?.map((subject) => (
                                                             <option value={subject?.id} key={subject?.id}>{subject?.subject}</option>
@@ -109,7 +115,6 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
                                                 </label>
                                                 <div className="relative">
                                                     <select onChange={(e)=>setAssignee(e.target.value)} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                                        <option value={0}>Other</option>
                                                         {assignees?.map((assignee) => (
                                                             <option value={assignee?.id} key={assignee?.id}>{assignee?.name}</option>
                                                         ))}
@@ -128,14 +133,14 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
                                                 <textarea onChange={(e)=>setDescription(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="description" type="text" placeholder="Enter description here" />
                                             </div>
                                         </div>
-                                        <div className="flex flex-wrap -mx-3 mb-2">
+                                        {/* <div className="flex flex-wrap -mx-3 mb-2">
                                             <div className="w-full px-3 mb-6 md:mb-0">
                                                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-city">
                                                     Due Date
                                                 </label>
                                                 <input onChange={(e)=>setDueDate(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="Date" placeholder="Albuquerque" />
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <p className="text-red-500 text-xs italic">{err}</p>
                                     </form>
 
