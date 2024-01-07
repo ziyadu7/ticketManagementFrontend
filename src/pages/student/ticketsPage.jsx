@@ -8,7 +8,8 @@ import AddTicketModal from '../../components/student/addTicketModal';
 function TicketsPage() {
 
     const dispatch = useDispatch()
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false)
+    
     const logout = ()=>{
         dispatch(studentLogout())
     }
