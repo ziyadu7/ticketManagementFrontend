@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-function TicketListTable({ tickets }) {
+function TicketListTable({ tickets, setTicketDetails,ticket,setTicket }) {
+
     return (
         <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -59,13 +60,16 @@ function TicketListTable({ tickets }) {
 
                                 </td>
                                 <td className="px-6 py-4">
-                                    {ticket?.createdDate.slice(0,10)}
+                                    {ticket?.createdDate.slice(0, 10)}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {ticket?.dueDate ? ticket?.dueDate?.createdDate.slice(0,10) : "Didn't completed"}
+                                    {ticket?.dueDate ? ticket?.dueDate?.createdDate.slice(0, 10) : "Didn't completed"}
                                 </td>
                                 <td className="px-6 py-4">
-                                    <button className='px-1 py-1 bg-blue-500 flex rounded-sm text-white'>View</button>
+                                    <button onClick={() => {
+                                        setTicket(ticket)
+                                        setTicketDetails(true)
+                                    }} className='px-1 py-1 bg-blue-500 flex rounded-sm text-white'>View</button>
                                 </td>
                             </tr>
                         )

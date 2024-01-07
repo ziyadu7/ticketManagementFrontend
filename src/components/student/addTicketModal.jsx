@@ -40,7 +40,6 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
     }, [])
 
     function addTicket (){
-        console.log(subject,assignee,description);
         if(subject===''||assignee===0||description.trim().length==0){
             setErr('Fill all the fields')
         }else {
@@ -133,14 +132,6 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
                                                 <textarea onChange={(e)=>setDescription(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="description" type="text" placeholder="Enter description here" />
                                             </div>
                                         </div>
-                                        {/* <div className="flex flex-wrap -mx-3 mb-2">
-                                            <div className="w-full px-3 mb-6 md:mb-0">
-                                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-city">
-                                                    Due Date
-                                                </label>
-                                                <input onChange={(e)=>setDueDate(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="Date" placeholder="Albuquerque" />
-                                            </div>
-                                        </div> */}
                                         <p className="text-red-500 text-xs italic">{err}</p>
                                     </form>
 
@@ -150,7 +141,12 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
                                     <button
                                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                         type="button"
-                                        onClick={() => setShowModal(false)}
+                                        onClick={() => 
+                                            {
+                                                setDescription('')
+                                                setErr('')
+                                                setShowModal(false)
+                                            }}
                                     >
                                         Close
                                     </button>
