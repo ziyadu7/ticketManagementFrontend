@@ -16,7 +16,7 @@ function TicketDetails({ setTicketDetails, ticket }) {
                         <div className=''>
                             <p className='md:mb-5 mb-2 text-slate-600'>Reported By :   {ticket?.requestedByStudent?.name}</p>
                             <p className='md:mb-5 mb-2 text-slate-600'>Created At :        {ticket?.createdDate.slice(0, 10)}</p>
-                            <p className='md:mb-5 mb-2 text-slate-600'>Status :       {ticket?.status}</p>
+                            <p className={`md:mb-5 mb-2 px-2 py-1 text-slate-600`}>Status :       {ticket?.status}</p>
                         </div>
                         <div>
                             <p className='md:mb-5 mb-2 text-slate-600'>Assigned To: {ticket?.assigneeAdmin?.name}</p>

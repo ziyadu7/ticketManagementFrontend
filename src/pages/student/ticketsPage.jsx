@@ -30,7 +30,7 @@ function TicketsPage() {
         }).catch(err => {
             errorFunction(err)
         })
-    }, [])
+    }, [refresh])
 
     const logout = () => {
         dispatch(studentLogout())

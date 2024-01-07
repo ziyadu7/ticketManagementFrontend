@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-function TicketListTable({ tickets, setTicketDetails,ticket,setTicket }) {
+function TicketListTable({ tickets, setTicketDetails,setTicket }) {
 
     return (
         <div className="relative overflow-x-auto">
@@ -53,11 +53,10 @@ function TicketListTable({ tickets, setTicketDetails,ticket,setTicket }) {
                                     {ticket?.assigneeAdmin?.name}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {ticket?.subject ? ticket?.ticketSubject?.priority : 'Low'}
+                                   <p className={`px-2  font-medium rounded-sm text-center ${ ticket?.ticketSubject?.priority=='high'?"bg-red-300 text-red-600":ticket?.ticketSubject?.priority=='medium'?'bg-yellow-400 text-yellow-600':'bg-slate-200 text-slate-700'}`}> {ticket?.subject ? ticket?.ticketSubject?.priority : 'Low'}</p>
                                 </td>
-                                <td className="px-6 py-4">
-                                    {ticket?.status}
-
+                                <td className={`px-6 py-4`}>
+                                    <p className={`px-2  text-white font-medium rounded-sm text-center ${ticket?.status=='Pending'?"bg-yellow-400":ticket?.status=='Closed'?'bg-slate-800':ticket?.status=='Open'?'bg-teal-500':''}`}>{ticket?.status}</p>
                                 </td>
                                 <td className="px-6 py-4">
                                     {ticket?.createdDate.slice(0, 10)}
