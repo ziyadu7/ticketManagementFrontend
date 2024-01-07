@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminNavbar from '../../components/admin/adminNavbar'
 import SubjectsTable from '../../components/admin/subjectsTable'
 import toast from 'react-hot-toast'
@@ -10,10 +10,23 @@ function SubjectsPage() {
 
     const [subject, setSetSubject] = useState('')
     const [priority, setPriority] = useState('')
-    const [refresh,setRefresh] = useState(false)
+    const [subjects, setSubjects] = useState([])
+    const [refresh, setRefresh] = useState(false)
     const [err, setErr] = useState('')
 
     const { token } = useSelector(state => state.Admin)
+
+    useEffect(() => {
+        axiosInstance.get('/admin/getSubjects', {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            setSubjects(res?.data?.subjects)
+        }).catch(err=>{
+            errorFunction(err)
+        })
+    }, [refresh])
 
     function addSubject() {
         if (subject.length <= 0 || priority == '') {
@@ -23,15 +36,15 @@ function SubjectsPage() {
                 headers: {
                     authorization: `Bearer ${token}`
                 }
-            }).then(res=>{
+            }).then(res => {
                 toast.success(res?.data?.message)
                 setRefresh(!refresh)
-            }).catch(err=>{
+            }).catch(err => {
                 errorFunction(err)
             })
         }
     }
-    
+
     return (
         <div>
             <AdminNavbar />
@@ -104,7 +117,7 @@ function SubjectsPage() {
                         </div>
                     </div>
                 </div>
-                <SubjectsTable />
+                <SubjectsTable subjects={subjects} />
             </div>
         </div>
     )

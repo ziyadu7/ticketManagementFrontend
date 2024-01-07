@@ -21,16 +21,16 @@ function SubjectsTable({subjects,handleAction}) {
                     </tr>
                 </thead>
                 <tbody>
-                    {subjects?.length >= 0 ? subjects.map((subject => {
+                    {subjects?.length >= 0 ? subjects?.map((subject => {
                         return (
                             <tr className="bg-white border-b text-black">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {subject?.id}
                                 </th>
                                 <td className="px-6 py-4">
-                                    {subject?.name}
+                                    {subject?.subject}
                                 </td>
-                                <td className="px-6 py-4">
+                                <td className={`px-6 py-4 ${subject?.priority=='high'?'text-red-600':subject?.priority=='medium'?'text-yellow-400':subject?.priority=='low'?'text-slate-600':''}`}>
                                     {subject?.priority}
                                 </td>
                                 <td className="px-6 py-4">
