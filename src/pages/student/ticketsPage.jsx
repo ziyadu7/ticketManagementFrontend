@@ -40,9 +40,9 @@ function TicketsPage() {
         dispatch(studentLogout())
     }
     return (
-        <div className='md:p-10 bg-slate-100 min-h-screen'>
+        <div className='md:p-10 p-2 bg-slate-100 min-h-screen'>
             {ticketDetail ? <TicketDetails ticket={ticket} ticketDetail={ticketDetail} setTicketDetails={setTicketDetails} /> : <>
-                <div className='grid md:grid-cols-4 sm:mb-4 mb-2 sm:grid-cols-2 gap-4 px-2 grid-cols-1'>
+                <div className='grid md:grid-cols-4 sm:mb-4 mb-2 grid-cols-2 gap-4 px-2'>
                     <Fiquers Icon={MdDiscount} bg={' bg-blue-600'} heading={'Total Tickets'} count={1000} />
                     <Fiquers Icon={FaRegClock} bg={' bg-yellow-400'} heading={'Pending Tickets'} count={1000} />
                     <Fiquers Icon={MdOutlineGppGood} bg={' bg-emerald-500'} heading={'Closed Tickets'} count={1000} />
