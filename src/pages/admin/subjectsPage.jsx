@@ -6,6 +6,7 @@ import axiosInstance from '../../api/axios'
 import { useSelector } from 'react-redux'
 import errorFunction from '../../helpers/errorHandling'
 import Loader from '../../components/loader'
+import Search from '../../components/search'
 
 function SubjectsPage() {
 
@@ -14,6 +15,7 @@ function SubjectsPage() {
     const [subjects, setSubjects] = useState([])
     const [refresh, setRefresh] = useState(false)
     const[loader,setLoader] = useState(false)
+    const [search,setSearch] = useState('')
     const [err, setErr] = useState('')
 
     const { token } = useSelector(state => state.Admin)
@@ -136,7 +138,8 @@ function SubjectsPage() {
                         </div>
                     </div>
                 </div>
-                <SubjectsTable subjects={subjects} handleAction={deleteSubject} />
+                <Search setSearch={setSearch}/>
+                <SubjectsTable search={search} subjects={subjects} handleAction={deleteSubject} />
             </div>
         </div>
     )

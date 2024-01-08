@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import errorFunction from '../../helpers/errorHandling'
 import axiosInstance from '../../api/axios'
 import TicketDetailsAdmin from '../../components/admin/ticketDetailsAdmin'
+import Search from '../../components/search'
 
 function Home() {
 
@@ -12,6 +13,7 @@ function Home() {
   const [refresh, setRefresh] = useState(false)
   const [ticket, setTicket] = useState('')
   const [ticketDetails, setTicketDetails] = useState(false)
+  const [search,setSearch] = useState('')
 
   const { token } = useSelector(state => state.Admin)
   useEffect(() => {
@@ -30,7 +32,14 @@ function Home() {
     <div><AdminNavbar />{ticketDetails ?
       <div className='bg-slate-100 min-h-screen'>
         <TicketDetailsAdmin refresh={refresh} setRefresh={setRefresh} ticket={ticket} setTicketDetails={setTicketDetails} />
-      </div> : <TicketListTable tickets={tickets} setTicketDetails={setTicketDetails} setTicket={setTicket} />}</div>
+      </div> : 
+      <div>
+        <Search setSearch={setSearch}/>
+        <TicketListTable tickets={tickets} search={search} setTicketDetails={setTicketDetails} setTicket={setTicket} />
+        </div>
+        }
+
+      </div>
   )
 }
 

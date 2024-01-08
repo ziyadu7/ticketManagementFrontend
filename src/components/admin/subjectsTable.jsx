@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SubjectsTable({subjects,handleAction}) {
+function SubjectsTable({subjects,handleAction,search}) {
   return (
     <div className="overflow-x-auto">
             <table className="w-full text-sm text-left rtl:text-right text-gray-50">
@@ -21,7 +21,7 @@ function SubjectsTable({subjects,handleAction}) {
                     </tr>
                 </thead>
                 <tbody>
-                    {subjects?.length >= 0 ? subjects?.map((subject => {
+                    {subjects?.length >= 0 ? subjects?.filter(subject=>subject?.subject?.toLowerCase().includes(search)).map((subject => {
                         return (
                             <tr className="bg-white border-b text-black">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">

@@ -5,12 +5,14 @@ import errorFunction from '../../helpers/errorHandling'
 import AdminNavbar from '../../components/admin/adminNavbar'
 import StudentsListTable from '../../components/admin/studentsListTable'
 import toast from 'react-hot-toast'
+import Search from '../../components/search'
 
 function StudentList() {
 
     const [students, setStudents] = useState([])
     const [refresh, setRefresh] = useState(false)
     const { token } = useSelector(state => state.Admin)
+    const [search,setSearch] = useState('')
     useEffect(() => {
         axiosInstance.get('/admin/getStudents', {
             headers: {
@@ -39,7 +41,8 @@ function StudentList() {
         <div>
             <AdminNavbar />
             <div className='-z-50 px-16 w-full'>
-                <StudentsListTable students={students} handleAction={handleAction} />
+                <Search setSearch={setSearch}/>
+                <StudentsListTable search={search} students={students} handleAction={handleAction} />
             </div>
         </div>
     )

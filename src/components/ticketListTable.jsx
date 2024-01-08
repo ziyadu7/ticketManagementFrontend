@@ -1,6 +1,6 @@
 import React from 'react'
 
-function TicketListTable({ tickets, setTicketDetails, setTicket }) {
+function TicketListTable({ tickets, setTicketDetails, setTicket, search }) {
 
     return (
         <div className="relative overflow-x-auto md:mx-5 sm:mx-3 mx-1">
@@ -37,7 +37,7 @@ function TicketListTable({ tickets, setTicketDetails, setTicket }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {tickets?.map(ticket => {
+                    {tickets.filter((ticket => (ticket?.subject ? ticket?.ticketSubject?.subject?.toLowerCase().includes(search) : ticket))).map(ticket => {
                         return (
                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -65,7 +65,7 @@ function TicketListTable({ tickets, setTicketDetails, setTicket }) {
                                     {ticket?.dueDate ? ticket?.dueDate?.slice(0, 10) : "Didn't completed"}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {ticket?.status == 'Deleted'||ticket?.status == 'Closed' ? '...' : <button onClick={() => {
+                                    {ticket?.status == 'Deleted' || ticket?.status == 'Closed' ? '...' : <button onClick={() => {
                                         setTicket(ticket)
                                         setTicketDetails(true)
                                     }} className='px-1 py-1 bg-blue-500 flex rounded-sm text-white'>View</button>}

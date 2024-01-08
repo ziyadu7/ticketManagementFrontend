@@ -1,6 +1,6 @@
 import React from 'react'
 
-function StudentsListTable({ students, handleAction }) {
+function StudentsListTable({ students, handleAction, search }) {
     return (
         <div className="overflow-x-auto">
             <table className="w-full text-sm text-left rtl:text-right text-gray-50">
@@ -18,7 +18,7 @@ function StudentsListTable({ students, handleAction }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {students?.length >= 0 ? students.map((student => {
+                    {students?.length >= 0 ? students?.filter(student=>student?.name?.toLowerCase().includes(search)).map((student => {
                         return (
                             <tr key={student?.id} className="bg-white border-b text-black">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">

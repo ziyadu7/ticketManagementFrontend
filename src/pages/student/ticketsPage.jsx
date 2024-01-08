@@ -11,6 +11,7 @@ import Fiquers from '../../components/student/fiquers';
 import { MdOutlineGppGood, MdDiscount } from "react-icons/md";
 import { FaRegClock } from "react-icons/fa6";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import Search from '../../components/search';
 
 function TicketsPage() {
 
@@ -19,6 +20,7 @@ function TicketsPage() {
     const [refresh, setRefresh] = useState(false)
     const [tickets, setTickets] = useState([])
     const [ticketDetail, setTicketDetails] = useState(false)
+    const [search, setSearch] = useState('')
     const [ticket, setTicket] = useState('')
 
     const { token } = useSelector(state => state.Student)
@@ -42,10 +44,10 @@ function TicketsPage() {
         <div className='md:p-10 p-2 bg-slate-100 min-h-screen'>
             {ticketDetail ? <TicketDetails ticket={ticket} ticketDetail={ticketDetail} setTicketDetails={setTicketDetails} /> : <>
                 <div className='grid md:grid-cols-4 sm:mb-4 mb-2 grid-cols-2 gap-4 px-2'>
-                    <Fiquers tickets={tickets} Icon={MdDiscount} bg={' bg-blue-600'} heading={'Total Tickets'}/>
-                    <Fiquers tickets={tickets} Icon={FaRegClock} bg={' bg-yellow-400'} heading={'Pending Tickets'}/>
-                    <Fiquers tickets={tickets} Icon={MdOutlineGppGood} bg={' bg-emerald-500'} heading={'Closed Tickets'}/>
-                    <Fiquers tickets={tickets} Icon={RiDeleteBin6Line} bg={' bg-red-500'} heading={'Deleted Tickets'}/>
+                    <Fiquers tickets={tickets} Icon={MdDiscount} bg={' bg-blue-600'} heading={'Total Tickets'} />
+                    <Fiquers tickets={tickets} Icon={FaRegClock} bg={' bg-yellow-400'} heading={'Pending Tickets'} />
+                    <Fiquers tickets={tickets} Icon={MdOutlineGppGood} bg={' bg-emerald-500'} heading={'Closed Tickets'} />
+                    <Fiquers tickets={tickets} Icon={RiDeleteBin6Line} bg={' bg-red-500'} heading={'Deleted Tickets'} />
                 </div>
                 <div className='bg-white min-h-screen'>
                     <div className='flex justify-between p-2'>
@@ -56,23 +58,10 @@ function TicketsPage() {
                         </div>
                     </div>
                     <div>
-                        <div className="flex mb-3 items-center p-4">
-                            <label
-                                htmlFor="exampleSearch2"
-                                className="me-2 text-slate-500"
-                            >
-                                Search :
-                            </label>
-                            <input
-                                type="search"
-                                className="peer block min-h-[auto] rounded border-2 bg-transparent px-3 py-[0.32rem] leading-[1.6]"
-                                id="exampleSearch2"
-                                placeholder="Type query"
-                            />
-                        </div>
+                        <Search setSearch={setSearch}/>
                     </div>
                     <AddTicketModal refresh={refresh} setRefresh={setRefresh} showModal={showModal} setShowModal={setShowModal} />
-                    <TicketListTable setTicket={setTicket} ticket={ticket} tickets={tickets} setTicketDetails={setTicketDetails} />
+                    <TicketListTable search={search} setTicket={setTicket} ticket={ticket} tickets={tickets} setTicketDetails={setTicketDetails} />
                 </div>
             </>}
         </div>
