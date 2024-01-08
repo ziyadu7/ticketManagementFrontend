@@ -22,6 +22,7 @@ function TicketsPage() {
     const [refresh, setRefresh] = useState(false)
     const [tickets, setTickets] = useState([])
     const [ticketDetail, setTicketDetails] = useState(false)
+    const [refreshC, setRefreshC] = useState(false)
     const [search, setSearch] = useState('')
     const [ticket, setTicket] = useState('')
 
@@ -49,8 +50,8 @@ function TicketsPage() {
                     <TicketDetails ticket={ticket} ticketDetail={ticketDetail} setTicketDetails={setTicketDetails} />
                     <div className='flex justify-center mt-2'>
                     <div className='bg-white md:w-3/4 w-full p-4'>
-                        <AddComment/>
-                        <Comments token={token}/>
+                        <AddComment refresh={refreshC} setRefresh={setRefreshC}/>
+                        <Comments token={token} refresh={refreshC} url={"/fetchComments"}/>
                     </div>
                     </div>
                 </> : <>

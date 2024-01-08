@@ -4,13 +4,12 @@ import axiosInstance from '../api/axios'
 import { MdComment } from 'react-icons/md'
 import errorFunction from '../helpers/errorHandling'
 
-function Comments({ token }) {
+function Comments({ token,refresh,url }) {
 
     const [comments, setComments] = useState([])
-    const [refresh, setRefresh] = useState(false)
 
     useEffect(() => {
-        axiosInstance.get('/fetchComments', {
+        axiosInstance.get(url, {
             headers: {
                 authorization: `Bearer ${token}`
             }

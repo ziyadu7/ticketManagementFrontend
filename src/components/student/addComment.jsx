@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import Loader from '../loader'
 import { useSelector } from 'react-redux'
 import axiosInstance from '../../api/axios'
 import toast from 'react-hot-toast'
 import errorFunction from '../../helpers/errorHandling'
 
-function AddComment() {
+function AddComment({refresh,setRefresh}) {
     const [comment, setComment] = useState('')
     const [loader, setLoader] = useState(false)
-    const [refresh, setRefresh] = useState(false)
     const { token } = useSelector(state => state.Student)
 
     const addComment = () => {

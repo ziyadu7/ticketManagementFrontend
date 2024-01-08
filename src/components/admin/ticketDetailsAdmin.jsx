@@ -4,6 +4,7 @@ import axiosInstance from '../../api/axios'
 import { useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
 import errorFunction from '../../helpers/errorHandling'
+import Comments from '../comments'
 
 function TicketDetailsAdmin({ refresh, setRefresh, setTicketDetails, ticket }) {
 
@@ -17,7 +18,7 @@ function TicketDetailsAdmin({ refresh, setRefresh, setTicketDetails, ticket }) {
     }, [status]);
 
     function submitEdits() {
-        if(status!=''){
+        if (status != '') {
             axiosInstance.put(`/admin/updateStatus/:${ticket?.id}`, { status }, {
                 headers: {
                     authorization: `Bearer ${token}`
@@ -82,6 +83,11 @@ function TicketDetailsAdmin({ refresh, setRefresh, setTicketDetails, ticket }) {
                         <button onClick={submitEdits} className=' bg-green-600 rounded-sm px-2 hover:bg-green-800'>Submit Edits</button>
                     </div>
                 </div>
+            </div>
+            <div className='flex justify-center mt-2'>
+            <div className='bg-white md:w-3/4 w-full p-4'>
+                <Comments url={'/admin/fetchComments'} token={token} />
+            </div>
             </div>
         </>
     )
