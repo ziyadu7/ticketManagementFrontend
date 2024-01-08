@@ -53,7 +53,15 @@ function SubjectsPage() {
 
 
     const deleteSubject = (subjectId)=>{
-        axiosInstance.delete('')
+        axiosInstance.delete(`/admin/deleteSubject/:${subjectId}`,{headers: {
+            authorization: `Bearer ${token}`
+        }}).then(res=>{
+            setRefresh(!refresh)
+            toast.success(res?.data?.message)
+        }).catch(err=>{
+            setRefresh(!refresh)
+            errorFunction(err)
+        })
     }
 
     return (
