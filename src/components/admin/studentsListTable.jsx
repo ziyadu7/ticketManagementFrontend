@@ -20,7 +20,7 @@ function StudentsListTable({ students, handleAction }) {
                 <tbody>
                     {students?.length >= 0 ? students.map((student => {
                         return (
-                            <tr className="bg-white border-b text-black">
+                            <tr key={student?.id} className="bg-white border-b text-black">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {student?.id}
                                 </th>

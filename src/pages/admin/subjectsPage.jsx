@@ -51,6 +51,11 @@ function SubjectsPage() {
         }
     }
 
+
+    const deleteSubject = (subjectId)=>{
+        axiosInstance.delete('')
+    }
+
     return (
         <div>
             <AdminNavbar />

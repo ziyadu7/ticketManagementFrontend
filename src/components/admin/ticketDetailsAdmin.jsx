@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoArrowBack } from 'react-icons/io5'
 import axiosInstance from '../../api/axios'
 import { useSelector } from 'react-redux'
@@ -7,23 +7,30 @@ import errorFunction from '../../helpers/errorHandling'
 
 function TicketDetailsAdmin({ refresh, setRefresh, setTicketDetails, ticket }) {
 
-    const [newStatus, setStatus] = useState('')
+    const [status, setStatus] = useState('')
     const { token } = useSelector(state => state.Admin)
 
-    function submitEdits(dltStatus = null) {
-        let status = newStatus
-        axiosInstance.put(`/admin/updateStatus/:${ticket?.id}`, { status }, {
-            headers: {
-                authorization: `Bearer ${token}`
-            }
-        }).then(res => {
-            toast.success(res?.data?.message)
-            setRefresh(!refresh)
-            setTicketDetails(false)
-        }).catch(err => {
-            setRefresh(!refresh)
-            errorFunction(err)
-        })
+    useEffect(() => {
+        if (status === 'Deleted') {
+            submitEdits();
+        }
+    }, [status]);
+
+    function submitEdits() {
+        if(status!=''){
+            axiosInstance.put(`/admin/updateStatus/:${ticket?.id}`, { status }, {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            }).then(res => {
+                toast.success(res?.data?.message)
+                setRefresh(!refresh)
+                setTicketDetails(false)
+            }).catch(err => {
+                setRefresh(!refresh)
+                errorFunction(err)
+            })
+        }
     }
 
     return (
@@ -70,7 +77,7 @@ function TicketDetailsAdmin({ refresh, setRefresh, setTicketDetails, ticket }) {
                     <div className='flex justify-end gap-2'>
                         <button onClick={() => {
                             setStatus('Deleted')
-                            submitEdits('Deleted')
+                            submitEdits()
                         }} className=' bg-red-600 rounded-sm px-2 hover:bg-red-800'>Delete Token</button>
                         <button onClick={submitEdits} className=' bg-green-600 rounded-sm px-2 hover:bg-green-800'>Submit Edits</button>
                     </div>
