@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 import axiosInstance from '../../api/axios'
 import { useSelector } from 'react-redux'
 import errorFunction from '../../helpers/errorHandling'
+import Loader from '../../components/loader'
 
 function SubjectsPage() {
 
@@ -12,6 +13,7 @@ function SubjectsPage() {
     const [priority, setPriority] = useState('')
     const [subjects, setSubjects] = useState([])
     const [refresh, setRefresh] = useState(false)
+    const[loader,setLoader] = useState(false)
     const [err, setErr] = useState('')
 
     const { token } = useSelector(state => state.Admin)
@@ -29,7 +31,9 @@ function SubjectsPage() {
     }, [refresh])
 
     function addSubject() {
+        setLoader(true)
         if (subject.length <= 0 || priority == '') {
+            setLoader(false)
             setErr('Fill all the fields')
         } else {
             axiosInstance.post('/admin/addSubject', { subject, priority }, {
@@ -37,16 +41,14 @@ function SubjectsPage() {
                     authorization: `Bearer ${token}`
                 }
             }).then(res => {
+                setLoader(false)
                 toast.success(res?.data?.message)
                 setRefresh(!refresh)
             }).catch(err => {
+                setLoader(false)
                 errorFunction(err)
             })
         }
-    }
-
-    function deleteSubject(subjectId){
-        toast.success(subjectId);
     }
 
     return (
@@ -117,7 +119,7 @@ function SubjectsPage() {
                         </div>
                         <div className='flex justify-between mt-2'>
                             <small className='text-red-500'>{err}</small>
-                            <button onClick={() => addSubject()} className='bg-slate-400 hover:bg-slate-500 rounded-sm px-3 py-1'>Add Subject</button>
+                            <button onClick={() => addSubject()} className='bg-slate-400 hover:bg-slate-500 rounded-sm min-w-36 px-3 py-1'>{loader?<Loader WA={'w-4 h-4'}/>:'Add Subject'}</button>
                         </div>
                     </div>
                 </div>

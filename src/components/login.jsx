@@ -1,7 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import Loader from './loader'
 
-function Login({ setName, setPassword, handleSubmit, isAdmin,err }) {
+function Login({ setName, setPassword, handleSubmit, isAdmin,err,loader }) {
 
     const navigate = useNavigate()
     return (
@@ -28,12 +29,12 @@ function Login({ setName, setPassword, handleSubmit, isAdmin,err }) {
                         <div className='felx justify-center items-center'>
                             <small className='text-red-600 text-center flex justify-center'>{err}</small>
                         </div>
-                        {isAdmin ? '' : <p className='text-center text-blue-600 cursor-pointer' onClick={() => navigate('/student/login')}>Dont have an account ?</p>}
+                        {isAdmin ? '' : <p className='text-center text-blue-600 cursor-pointer' onClick={() => navigate('/register')}>Dont have an account ?</p>}
                         <button
                             type="button"
                             onClick={() => handleSubmit()}
                             className="w-full text-center py-3 rounded bg-blue-500 text-white hover:bg-green-dark focus:outline-none my-1"
-                        >Login</button>
+                        >{loader?<Loader WA={'w-6 h-6'}/>:'Login'}</button>
                     </div>
                 </div>
             </div>

@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import axiosInstance from '../../api/axios'
 import toast from 'react-hot-toast'
 import errorFunction from '../../helpers/errorHandling'
+import Loader from '../../components/loader'
 
 function Register() {
     const [name,setName] = useState('')
     const [password,setPassword] = useState('')
+    const [loader,setLoader] = useState(false)
     
     const passwordRegex = /^(?=.*?[A-Z])(?=.*[a-z])(?=.*[0-9]){3,16}/gm
 
@@ -14,18 +16,24 @@ function Register() {
     const navigate = useNavigate()
 
     const confirmRegister = ()=>{
+        setLoader(true)
         setErr('')
         if(name.trim().length==0||password.trim().length==0){
+            setLoader(false)
             setErr('Fill all the fields')
         }else if (password.length<=3){
+            setLoader(false)
             setErr('Password too small')
         }else if(passwordRegex.test(password) == false){
+            setLoader(false)
             setErr('Password must contain [a-zA-Z0-9]')
         }else{
             axiosInstance.post('/register',{name,password}).then(res=>{
+                setLoader(false)
                 toast.success(res?.data?.message)
                 navigate('/login')
             }).catch(err=>{
+                setLoader(false)
                 errorFunction(err)
             })
         }
@@ -59,7 +67,7 @@ function Register() {
                             type="button"
                             onClick={() => confirmRegister()}
                             className="w-full text-center py-3 rounded bg-blue-500 text-white hover:bg-green-dark focus:outline-none my-1"
-                        >Register</button>
+                        >{loader ?<Loader WA={'w-6 h-6'}/>:'Register'}</button>
                     </div>
                 </div>
             </div>

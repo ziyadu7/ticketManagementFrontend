@@ -3,11 +3,13 @@ import axiosInstance from "../../api/axios";
 import errorFunction from "../../helpers/errorHandling";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import Loader from "../loader";
 
 function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
 
     const [subjects, setSubjects] = useState([])
     const [assignees, setAssignees] = useState([])
+    const [loader,setLoader] = useState(false)
 
     const [subject,setSubject] = useState(0)
     const [assignee,setAssignee] = useState(0)
@@ -40,7 +42,9 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
     }, [])
 
     function addTicket (){
+        setLoader(true)
         if(subject===''||assignee===0||description.trim().length==0){
+            setLoader(false)
             setErr('Fill all the fields')
         }else {
             axiosInstance.post('/addTicket',{subject,assignee,description},{
@@ -48,6 +52,7 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
                     authorization: `Bearer ${token}`
                 }
             }).then(res=>{
+                setLoader(false)
                 setAssignee(0)
                 setDescription('')
                 setSubject(0)
@@ -55,6 +60,7 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
                 setRefresh(!refresh)
                 setShowModal(false)
             }).catch(err=>{
+                setLoader(false)
                 setAssignee(0)
                 setDescription('')
                 setSubject(0)
@@ -151,11 +157,12 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
                                         Close
                                     </button>
                                     <button
-                                        className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                        className="bg-emerald-500  min-w-32 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                         type="button"
                                         onClick={() => addTicket()}
                                     >
-                                        Add Ticket
+                                        {loader?<Loader WA={'w-6 h-6'}/>:'Add Ticket'}
+                                       
                                     </button>
                                 </div>
                             </div>

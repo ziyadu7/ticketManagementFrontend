@@ -13,25 +13,31 @@ function StudentLogin() {
     const [err,setErr] = useState('')
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [loader,setLoader] = useState(false)
 
     const handleSubmit = ()=>{
+        setLoader(true)
         setErr('')
         if(name.trim().length==0||password.trim().length==0){
+            setLoader(false)
             setErr('Fill all the fields')
         }else if(password.length<=3){
+            setLoader(false)
             setErr('Password is too short')
         }else{
             axiosInstance.post('/login',{name,password}).then(res=>{
+                setLoader(false)
                 dispatch(studentLogin({name:res?.data?.name,role:res?.data?.role,token:res?.data?.token}))
                 navigate('/')
             }).catch(err=>{
+                setLoader(false)
                 errorFunction(err)
             })
         }
     }
 
   return (
-    <Login isAdmin={false} setName={setName} setPassword={setPassword} handleSubmit={handleSubmit} err={err}/>
+    <Login isAdmin={false} loader={loader} setName={setName} setPassword={setPassword} handleSubmit={handleSubmit} err={err}/>
   )
 }
 
