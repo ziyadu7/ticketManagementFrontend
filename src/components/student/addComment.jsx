@@ -16,7 +16,7 @@ function AddComment({refresh,setRefresh}) {
             setLoader(false)
             toast.error('Fill the field')
         }else{
-            axiosInstance.get('/addComment', {
+            axiosInstance.post('/addComment',{comment}, {
                 headers: {
                     authorization: `Bearer ${token}`
                 }

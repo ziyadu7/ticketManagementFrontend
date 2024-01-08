@@ -24,7 +24,9 @@ function Comments({ token,refresh,url }) {
         <div>
              <div className='flex gap-1'><MdComment/><h4 className='text-black font-semibold mb-4'>Discussions({comments.length})</h4></div>
             {comments?.map(comment => {
-                <Comment comment={comment} />
+                return (
+                    <Comment comment={comment} />
+                )
             })}
         </div>
     )
