@@ -5,7 +5,7 @@ import axiosInstance from '../../api/axios'
 import toast from 'react-hot-toast'
 import errorFunction from '../../helpers/errorHandling'
 
-function AddComment({refresh,setRefresh}) {
+function AddComment({refresh,setRefresh,ticketId}) {
     const [comment, setComment] = useState('')
     const [loader, setLoader] = useState(false)
     const { token } = useSelector(state => state.Student)
@@ -16,7 +16,7 @@ function AddComment({refresh,setRefresh}) {
             setLoader(false)
             toast.error('Fill the field')
         }else{
-            axiosInstance.post('/addComment',{comment}, {
+            axiosInstance.post('/addComment',{comment,ticketId}, {
                 headers: {
                     authorization: `Bearer ${token}`
                 }

@@ -86,7 +86,7 @@ function TicketDetailsAdmin({ refresh, setRefresh, setTicketDetails, ticket }) {
             </div>
             <div className='flex justify-center mt-2'>
             <div className='bg-white md:w-3/4 w-full p-4'>
-                <Comments url={'/admin/fetchComments'} token={token} />
+                <Comments  url={`/admin/fetchComments/${ticket?.id}`} token={token} />
             </div>
             </div>
         </>

@@ -50,8 +50,8 @@ function TicketsPage() {
                     <TicketDetails ticket={ticket} ticketDetail={ticketDetail} setTicketDetails={setTicketDetails} />
                     <div className='flex justify-center mt-2'>
                     <div className='bg-white md:w-3/4 w-full p-4'>
-                        <AddComment refresh={refreshC} setRefresh={setRefreshC}/>
-                        <Comments token={token} refresh={refreshC} url={"/fetchComments"}/>
+                        <AddComment refresh={refreshC} setRefresh={setRefreshC} ticketId={ticket?.id}/>
+                        <Comments token={token} refresh={refreshC} url={`/fetchComments/${ticket?.id}`}/>
                     </div>
                     </div>
                 </> : <>

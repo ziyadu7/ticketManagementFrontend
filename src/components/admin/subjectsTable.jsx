@@ -23,7 +23,7 @@ function SubjectsTable({subjects,handleAction,search}) {
                 <tbody>
                     {subjects?.length >= 0 ? subjects?.filter(subject=>subject?.subject?.toLowerCase().includes(search)).map((subject => {
                         return (
-                            <tr className="bg-white border-b text-black">
+                            <tr key={subject?.id} className="bg-white border-b text-black">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {subject?.id}
                                 </th>
