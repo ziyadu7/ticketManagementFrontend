@@ -13,7 +13,6 @@ import { FaRegClock } from "react-icons/fa6";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Search from '../../components/search';
 import Comments from '../../components/comments';
-import { MdComment } from "react-icons/md";
 import AddComment from '../../components/student/addComment';
 
 function TicketsPage() {
@@ -51,8 +50,7 @@ function TicketsPage() {
                     <div className='flex justify-center mt-2'>
                     <div className='bg-white md:w-3/4 w-full p-4'>
                         <AddComment/>
-                        <div className='flex gap-1'><MdComment/><h4 className='text-black font-semibold mb-4'>Discussions(88)</h4></div>
-                        <Comments/>
+                        <Comments token={token}/>
                     </div>
                     </div>
                 </> : <>

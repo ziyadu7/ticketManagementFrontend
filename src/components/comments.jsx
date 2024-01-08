@@ -1,14 +1,32 @@
-import React from 'react'
-import { CgProfile } from "react-icons/cg";
+import React, { useEffect, useState } from 'react'
+import Comment from './comment'
+import axiosInstance from '../api/axios'
+import { MdComment } from 'react-icons/md'
+import errorFunction from '../helpers/errorHandling'
 
-function Comments({comment}) {
+function Comments({ token }) {
+
+    const [comments, setComments] = useState([])
+    const [refresh, setRefresh] = useState(false)
+
+    useEffect(() => {
+        axiosInstance.get('/fetchComments', {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            setComments(res?.data?.comments)
+        }).catch(err => {
+            errorFunction(err)
+        })
+    }, [refresh])
+
     return (
         <div>
-            <div className='flex gap-2'>
-                <CgProfile className='mt-1 font-medium' />
-                <p className='font-medium text-black'>{comment?.name} </p>
-            </div>
-                <p className='text-slate-600 ms-8' style={{ overflowWrap: 'break-word' }}>{comment?.comment}</p>
+             <div className='flex gap-1'><MdComment/><h4 className='text-black font-semibold mb-4'>Discussions({comments.length})</h4></div>
+            {comments?.map(comment => {
+                <Comment comment={comment} />
+            })}
         </div>
     )
 }

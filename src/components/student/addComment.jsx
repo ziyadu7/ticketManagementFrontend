@@ -1,12 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Loader from '../loader'
+import { useSelector } from 'react-redux'
+import axiosInstance from '../../api/axios'
+import toast from 'react-hot-toast'
+import errorFunction from '../../helpers/errorHandling'
 
 function AddComment() {
     const [comment, setComment] = useState('')
     const [loader, setLoader] = useState(false)
+    const [refresh, setRefresh] = useState(false)
+    const { token } = useSelector(state => state.Student)
 
     const addComment = () => {
-        
+        setLoader(true)
+        if(comment.trim().length==0){
+            setLoader(false)
+            toast.error('Fill the field')
+        }else{
+            axiosInstance.get('/addComment', {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            }).then(res => {
+                setLoader(false)
+                setRefresh(!refresh)
+                toast.success(res?.data?.message)
+            }).catch(err => {
+                setLoader(false)
+                errorFunction(err)
+            })
+        }
     }
 
     return (
