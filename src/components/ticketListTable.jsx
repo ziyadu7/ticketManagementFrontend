@@ -65,7 +65,7 @@ function TicketListTable({ tickets, setTicketDetails, setTicket }) {
                                     {ticket?.dueDate ? ticket?.dueDate?.slice(0, 10) : "Didn't completed"}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {ticket?.status == 'Deleted' ? '...' : <button onClick={() => {
+                                    {ticket?.status == 'Deleted'||ticket?.status == 'Closed' ? '...' : <button onClick={() => {
                                         setTicket(ticket)
                                         setTicketDetails(true)
                                     }} className='px-1 py-1 bg-blue-500 flex rounded-sm text-white'>View</button>}

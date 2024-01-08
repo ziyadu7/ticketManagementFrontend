@@ -29,7 +29,6 @@ function TicketsPage() {
                 authorization: `Bearer ${token}`
             }
         }).then(res => {
-            console.log(res?.data?.tickets);
             setTickets(res?.data?.tickets)
         }).catch(err => {
             errorFunction(err)
@@ -43,10 +42,10 @@ function TicketsPage() {
         <div className='md:p-10 p-2 bg-slate-100 min-h-screen'>
             {ticketDetail ? <TicketDetails ticket={ticket} ticketDetail={ticketDetail} setTicketDetails={setTicketDetails} /> : <>
                 <div className='grid md:grid-cols-4 sm:mb-4 mb-2 grid-cols-2 gap-4 px-2'>
-                    <Fiquers Icon={MdDiscount} bg={' bg-blue-600'} heading={'Total Tickets'} count={1000} />
-                    <Fiquers Icon={FaRegClock} bg={' bg-yellow-400'} heading={'Pending Tickets'} count={1000} />
-                    <Fiquers Icon={MdOutlineGppGood} bg={' bg-emerald-500'} heading={'Closed Tickets'} count={1000} />
-                    <Fiquers Icon={RiDeleteBin6Line} bg={' bg-red-500'} heading={'Total Tickets'} count={1000} />
+                    <Fiquers tickets={tickets} Icon={MdDiscount} bg={' bg-blue-600'} heading={'Total Tickets'}/>
+                    <Fiquers tickets={tickets} Icon={FaRegClock} bg={' bg-yellow-400'} heading={'Pending Tickets'}/>
+                    <Fiquers tickets={tickets} Icon={MdOutlineGppGood} bg={' bg-emerald-500'} heading={'Closed Tickets'}/>
+                    <Fiquers tickets={tickets} Icon={RiDeleteBin6Line} bg={' bg-red-500'} heading={'Deleted Tickets'}/>
                 </div>
                 <div className='bg-white min-h-screen'>
                     <div className='flex justify-between p-2'>

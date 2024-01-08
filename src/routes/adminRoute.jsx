@@ -11,7 +11,7 @@ function AdminRoute() {
     return (
         <div>
             <Routes>
-                <Route path='/login' element={<AdminLogin/>} />
+                <Route path='/login' element={token?<Navigate to={'/admin'}/>:<AdminLogin/>} />
                 <Route path='/' element={token?<Home/>:<Navigate to={'/login'}/>} />
                 <Route path='/students' element={token?<StudentList/>:<Navigate to={'/login'}/>} />
                 <Route path='/subjects' element={token?<SubjectsPage/>:<Navigate to={'/login'}/>} />
