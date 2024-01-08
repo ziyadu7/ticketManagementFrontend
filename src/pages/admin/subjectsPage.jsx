@@ -10,7 +10,7 @@ import Search from '../../components/search'
 
 function SubjectsPage() {
 
-    const [subject, setSetSubject] = useState('')
+    const [subject, setSubject] = useState('')
     const [priority, setPriority] = useState('')
     const [subjects, setSubjects] = useState([])
     const [refresh, setRefresh] = useState(false)
@@ -72,7 +72,7 @@ function SubjectsPage() {
             <div>
                 <div className='flex justify-center'>
                     <div className='sm:w-1/2 p-5'>
-                        <input type="text" onChange={(e) => setSetSubject(e.target.value)} placeholder='Add subject' className='block border border-slate-600 w-full p-3 rounded mb-4' />
+                        <input type="text" onChange={(e) => setSubject(e.target.value)} placeholder='Add subject' className='block border border-slate-600 w-full p-3 rounded mb-4' />
                         <div>
                             <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Priority</h3>
                             <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">

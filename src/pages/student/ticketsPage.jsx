@@ -12,6 +12,9 @@ import { MdOutlineGppGood, MdDiscount } from "react-icons/md";
 import { FaRegClock } from "react-icons/fa6";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Search from '../../components/search';
+import Comments from '../../components/comments';
+import { MdComment } from "react-icons/md";
+import AddComment from '../../components/student/addComment';
 
 function TicketsPage() {
 
@@ -42,28 +45,38 @@ function TicketsPage() {
     }
     return (
         <div className='md:p-10 p-2 bg-slate-100 min-h-screen'>
-            {ticketDetail ? <TicketDetails ticket={ticket} ticketDetail={ticketDetail} setTicketDetails={setTicketDetails} /> : <>
-                <div className='grid md:grid-cols-4 sm:mb-4 mb-2 grid-cols-2 gap-4 px-2'>
-                    <Fiquers tickets={tickets} Icon={MdDiscount} bg={' bg-blue-600'} heading={'Total Tickets'} />
-                    <Fiquers tickets={tickets} Icon={FaRegClock} bg={' bg-yellow-400'} heading={'Pending Tickets'} />
-                    <Fiquers tickets={tickets} Icon={MdOutlineGppGood} bg={' bg-emerald-500'} heading={'Closed Tickets'} />
-                    <Fiquers tickets={tickets} Icon={RiDeleteBin6Line} bg={' bg-red-500'} heading={'Deleted Tickets'} />
-                </div>
-                <div className='bg-white min-h-screen'>
-                    <div className='flex justify-between p-2'>
-                        <p className='font-semibold'>Manage Tickets</p>
-                        <div className='flex gap-2'>
-                            <button onClick={() => logout()} className='px-1 py-1 bg-red-500 flex rounded-sm text-white'>Logout</button>
-                            <button onClick={() => setShowModal(true)} className='px-1 py-1 bg-blue-500 flex rounded-sm text-white'><AiFillPlusCircle className='mt-1 me-1' />Add Ticket</button>
+            {ticketDetail ?
+                <>
+                    <TicketDetails ticket={ticket} ticketDetail={ticketDetail} setTicketDetails={setTicketDetails} />
+                    <div className='flex justify-center mt-2'>
+                    <div className='bg-white md:w-3/4 w-full p-4'>
+                        <AddComment/>
+                        <div className='flex gap-1'><MdComment/><h4 className='text-black font-semibold mb-4'>Discussions(88)</h4></div>
+                        <Comments/>
+                    </div>
+                    </div>
+                </> : <>
+                    <div className='grid md:grid-cols-4 sm:mb-4 mb-2 grid-cols-2 gap-4 px-2'>
+                        <Fiquers tickets={tickets} Icon={MdDiscount} bg={' bg-blue-600'} heading={'Total Tickets'} />
+                        <Fiquers tickets={tickets} Icon={FaRegClock} bg={' bg-yellow-400'} heading={'Pending Tickets'} />
+                        <Fiquers tickets={tickets} Icon={MdOutlineGppGood} bg={' bg-emerald-500'} heading={'Closed Tickets'} />
+                        <Fiquers tickets={tickets} Icon={RiDeleteBin6Line} bg={' bg-red-500'} heading={'Deleted Tickets'} />
+                    </div>
+                    <div className='bg-white min-h-screen'>
+                        <div className='flex justify-between p-2'>
+                            <p className='font-semibold'>Manage Tickets</p>
+                            <div className='flex gap-2'>
+                                <button onClick={() => logout()} className='px-1 py-1 bg-red-500 flex rounded-sm text-white'>Logout</button>
+                                <button onClick={() => setShowModal(true)} className='px-1 py-1 bg-blue-500 flex rounded-sm text-white'><AiFillPlusCircle className='mt-1 me-1' />Add Ticket</button>
+                            </div>
                         </div>
+                        <div>
+                            <Search setSearch={setSearch} />
+                        </div>
+                        <AddTicketModal refresh={refresh} setRefresh={setRefresh} showModal={showModal} setShowModal={setShowModal} />
+                        <TicketListTable search={search} setTicket={setTicket} ticket={ticket} tickets={tickets} setTicketDetails={setTicketDetails} />
                     </div>
-                    <div>
-                        <Search setSearch={setSearch}/>
-                    </div>
-                    <AddTicketModal refresh={refresh} setRefresh={setRefresh} showModal={showModal} setShowModal={setShowModal} />
-                    <TicketListTable search={search} setTicket={setTicket} ticket={ticket} tickets={tickets} setTicketDetails={setTicketDetails} />
-                </div>
-            </>}
+                </>}
         </div>
     )
 }
