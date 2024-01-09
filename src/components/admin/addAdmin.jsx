@@ -1,16 +1,42 @@
 import React, { useState } from 'react'
 import Loader from '../loader'
+import axiosInstance from '../../api/axios'
+import { useSelector } from 'react-redux'
+import toast from 'react-hot-toast'
+import errorFunction from '../../helpers/errorHandling'
 
 function AddAdmin({ showModal, setShowModal }) {
 
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [err, setErr] = useState('')
-    const [isSuper,setIsSuper] = useState('')
+    const [isSuper,setIsSuper] = useState(false)
     const [loader, setLoader] = useState(false)
+    const { token } = useSelector(state => state.Admin)
 
     function addAdmin() {
-
+        setLoader(true)
+        setErr('')
+        if(name.trim().length==0||password.trim().length==0){
+            setErr('Fill all the field')
+        }else{
+            axiosInstance.post('/admin/addAdmin',{name,password,isSuper},{
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            }).then(res=>{
+                toast.success(res?.data?.message)
+                setLoader(false)
+                setShowModal(false)
+                setName('')
+                setPassword('')
+            }).catch(err=>{
+                setLoader(false)
+                setName('')
+                setPassword('')
+                errorFunction(err)
+            })
+        }
     }
 
     return (
@@ -63,7 +89,7 @@ function AddAdmin({ showModal, setShowModal }) {
                                                             onChange={(e) =>setIsSuper(true)}
                                                             id="horizontal-list-radio-license"
                                                             type="radio"
-                                                            value="high"
+                                                            value="true"
                                                             name="list-radio"
                                                             className="w-4 h-4 hover:cursor-pointer text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                                         />
@@ -81,7 +107,8 @@ function AddAdmin({ showModal, setShowModal }) {
                                                             onChange={(e) =>setIsSuper(false)}
                                                             id="horizontal-list-radio-license"
                                                             type="radio"
-                                                            value="medium"
+                                                            checked 
+                                                            value="false"
                                                             name="list-radio"
                                                             className="w-4 h-4 hover:cursor-pointer text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                                         />
@@ -121,7 +148,7 @@ function AddAdmin({ showModal, setShowModal }) {
                                     type="button"
                                     onClick={() => addAdmin()}
                                 >
-                                    {loader ? <Loader WA={'w-6 h-6'} /> : 'Add Ticket'}
+                                    {loader ? <Loader WA={'w-6 h-6'} /> : 'Add Admin'}
 
                                 </button>
                             </div>
