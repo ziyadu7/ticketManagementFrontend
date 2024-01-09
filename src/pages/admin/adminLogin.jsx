@@ -28,7 +28,7 @@ function AdminLogin() {
         }else{
             axiosInstance.post('/admin/login',{name,password}).then(res=>{
                 setLoader(false)
-                dispatch(adminLogin({name:res?.data?.name,role:res?.data?.role,token:res?.data?.token}))
+                dispatch(adminLogin({name:res?.data?.name,role:res?.data?.role,token:res?.data?.token,isSuper:res?.data?.isSuper}))
                 navigate('/admin')
             }).catch(err=>{
                 setLoader(false)

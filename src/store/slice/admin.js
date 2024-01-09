@@ -4,7 +4,8 @@ import {createSlice} from '@reduxjs/toolkit'
 const initialState = {
     name:null,
     role:null,
-    token:null
+    token:null,
+    isSuper:null
 }
 
 export const admin = createSlice({
@@ -15,11 +16,13 @@ export const admin = createSlice({
             state.name= action.payload.name,
             state.token = action.payload.token,
             state.role = action.payload.role
+            state.isSuper= action.payload.isSuper
         },
         adminLogout:(state,action)=>{
             state.name = null,
             state.token = null,
-            state.role = null
+            state.role = null,
+            state.isSuper = null
         }
     }
 })
