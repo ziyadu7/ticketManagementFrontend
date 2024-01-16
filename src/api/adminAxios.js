@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use(config=>{
-    const {token} = useSelector(store=>store.Admin)
+    const token = localStorage.getItem('AdminToken')
     config.headers.Authorization = token ?  `Bearer ${token}` : null
 })
  
