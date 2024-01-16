@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import AdminNavbar from '../../components/admin/adminNavbar'
 import TicketListTable from '../../components/ticketListTable'
-import { useSelector } from 'react-redux'
 import errorFunction from '../../helpers/errorHandling'
-import axiosInstance from '../../api/axios'
+import axiosInstance from '../../api/adminAxios'
 import TicketDetailsAdmin from '../../components/admin/ticketDetailsAdmin'
 import Search from '../../components/search'
 
@@ -15,13 +14,8 @@ function Home() {
   const [ticketDetails, setTicketDetails] = useState(false)
   const [search,setSearch] = useState('')
 
-  const { token } = useSelector(state => state.Admin)
   useEffect(() => {
-    axiosInstance.get('/admin/getTickets', {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    }).then(res => {
+    axiosInstance.get('/admin/getTickets').then(res => {
       setTickets(res?.data?.tickets)
     }).catch(err => {
       errorFunction(err)

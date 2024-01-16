@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import AdminNavbar from '../../components/admin/adminNavbar'
 import SubjectsTable from '../../components/admin/subjectsTable'
 import toast from 'react-hot-toast'
-import axiosInstance from '../../api/axios'
-import { useSelector } from 'react-redux'
+import axiosInstance from '../../api/adminAxios'
 import errorFunction from '../../helpers/errorHandling'
 import Loader from '../../components/loader'
 import Search from '../../components/search'
@@ -18,14 +17,8 @@ function SubjectsPage() {
     const [search,setSearch] = useState('')
     const [err, setErr] = useState('')
 
-    const { token } = useSelector(state => state.Admin)
-
     useEffect(() => {
-        axiosInstance.get('/admin/getSubjects', {
-            headers: {
-                authorization: `Bearer ${token}`
-            }
-        }).then(res => {
+        axiosInstance.get('/admin/getSubjects').then(res => {
             setSubjects(res?.data?.subjects)
         }).catch(err=>{
             errorFunction(err)
@@ -38,11 +31,7 @@ function SubjectsPage() {
             setLoader(false)
             setErr('Fill all the fields')
         } else {
-            axiosInstance.post('/admin/addSubject', { subject, priority }, {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            }).then(res => {
+            axiosInstance.post('/admin/addSubject', { subject, priority }).then(res => {
                 setLoader(false)
                 toast.success(res?.data?.message)
                 setRefresh(!refresh)
@@ -55,9 +44,7 @@ function SubjectsPage() {
 
 
     const deleteSubject = (subjectId)=>{
-        axiosInstance.delete(`/admin/deleteSubject/:${subjectId}`,{headers: {
-            authorization: `Bearer ${token}`
-        }}).then(res=>{
+        axiosInstance.delete(`/admin/deleteSubject/:${subjectId}`).then(res=>{
             setRefresh(!refresh)
             toast.success(res?.data?.message)
         }).catch(err=>{

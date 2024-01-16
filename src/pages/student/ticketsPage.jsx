@@ -4,7 +4,7 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import { studentLogout } from '../../store/slice/student';
 import AddTicketModal from '../../components/student/addTicketModal';
-import axiosInstance from '../../api/axios';
+import axiosInstance from '../../api/studentAxios';
 import errorFunction from '../../helpers/errorHandling';
 import TicketDetails from '../../components/student/ticketDetails';
 import Fiquers from '../../components/student/fiquers';
@@ -29,11 +29,7 @@ function TicketsPage() {
     const { token } = useSelector(state => state.Student)
 
     useEffect(() => {
-        axiosInstance.get('/fetchTickets', {
-            headers: {
-                authorization: `Bearer ${token}`
-            }
-        }).then(res => {
+        axiosInstance.get('/fetchTickets').then(res => {
             setTickets(res?.data?.tickets)
         }).catch(err => {
             errorFunction(err)

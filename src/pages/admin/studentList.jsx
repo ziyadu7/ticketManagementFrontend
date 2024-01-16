@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axiosInstance from '../../api/axios'
-import { useSelector } from 'react-redux'
+import axiosInstance from '../../api/adminAxios'
 import errorFunction from '../../helpers/errorHandling'
 import AdminNavbar from '../../components/admin/adminNavbar'
 import StudentsListTable from '../../components/admin/studentsListTable'
@@ -11,14 +10,9 @@ function StudentList() {
 
     const [students, setStudents] = useState([])
     const [refresh, setRefresh] = useState(false)
-    const { token } = useSelector(state => state.Admin)
     const [search,setSearch] = useState('')
     useEffect(() => {
-        axiosInstance.get('/admin/getStudents', {
-            headers: {
-                authorization: `Bearer ${token}`
-            }
-        }).then(res => {
+        axiosInstance.get('/admin/getStudents').then(res => {
             setStudents(res?.data?.students)
         }).catch(err => {
             errorFunction(err)
@@ -26,11 +20,7 @@ function StudentList() {
     }, [refresh])
 
     const handleAction = (studentId) => {
-        axiosInstance.patch('/admin/acceptStudent', { studentId }, {
-            headers: {
-                authorization: `Bearer ${token}`
-            }
-        }).then(res=>{
+        axiosInstance.patch('/admin/acceptStudent', { studentId }).then(res=>{
             toast.success(res?.data?.message)
             setRefresh(!refresh)
         }).catch(err=>{
