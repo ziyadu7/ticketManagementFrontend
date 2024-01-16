@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Loader from '../loader'
-import axiosInstance from '../../api/axios'
-import { useSelector } from 'react-redux'
+import axiosInstance from '../../api/adminAxios'
 import toast from 'react-hot-toast'
 import errorFunction from '../../helpers/errorHandling'
 
@@ -12,7 +11,6 @@ function AddAdmin({ showModal, setShowModal }) {
     const [err, setErr] = useState('')
     const [isSuper,setIsSuper] = useState(false)
     const [loader, setLoader] = useState(false)
-    const { token } = useSelector(state => state.Admin)
 
     function addAdmin() {
         setLoader(true)
@@ -20,11 +18,7 @@ function AddAdmin({ showModal, setShowModal }) {
         if(name.trim().length==0||password.trim().length==0){
             setErr('Fill all the field')
         }else{
-            axiosInstance.post('/admin/addAdmin',{name,password,isSuper},{
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            }).then(res=>{
+            axiosInstance.post('/admin/addAdmin',{name,password,isSuper}).then(res=>{
                 toast.success(res?.data?.message)
                 setLoader(false)
                 setShowModal(false)

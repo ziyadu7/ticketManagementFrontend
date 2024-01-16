@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { IoArrowBack } from 'react-icons/io5'
-import axiosInstance from '../../api/axios'
+import axiosInstance from '../../api/adminAxios'
 import { useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
 import errorFunction from '../../helpers/errorHandling'
@@ -19,11 +19,7 @@ function TicketDetailsAdmin({ refresh, setRefresh, setTicketDetails, ticket }) {
 
     function submitEdits() {
         if (status != '') {
-            axiosInstance.put(`/admin/updateStatus/:${ticket?.id}`, { status }, {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            }).then(res => {
+            axiosInstance.put(`/admin/updateStatus/:${ticket?.id}`, { status }).then(res => {
                 toast.success(res?.data?.message)
                 setRefresh(!refresh)
                 setTicketDetails(false)
