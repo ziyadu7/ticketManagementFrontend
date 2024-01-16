@@ -27,6 +27,7 @@ function StudentLogin() {
         }else{
             axiosInstance.post('/login',{name,password}).then(res=>{
                 setLoader(false)
+                localStorage.setItem('StudentToken',res?.data?.token)
                 dispatch(studentLogin({name:res?.data?.name,role:res?.data?.role,token:res?.data?.token}))
                 navigate('/')
             }).catch(err=>{
