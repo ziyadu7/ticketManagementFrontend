@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axiosInstance from "../../api/axios";
+import axiosInstance from "../../api/studentAxios";
 import errorFunction from "../../helpers/errorHandling";
-import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import Loader from "../loader";
 
@@ -16,24 +15,14 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
     const [description,setDescription] = useState('')
     const [err,setErr] = useState('')
 
-    const { token } = useSelector(state => state.Student)
-
     useEffect(() => {
-        axiosInstance.get('/getSubjects', {
-            headers: {
-                authorization: `Bearer ${token}`
-            }
-        }).then(res => {
+        axiosInstance.get('/getSubjects').then(res => {
             setSubjects(res?.data?.subjects)
         }).catch(err => {
             errorFunction(err)
         })
 
-        axiosInstance.get('/fetchAdmins', {
-            headers: {
-                authorization: `Bearer ${token}`
-            }
-        }).then(res => {
+        axiosInstance.get('/fetchAdmins').then(res => {
             setAssignees(res?.data?.admins)
             setAssignee(res?.data?.admins[0]?.id)
         }).catch(err => {
@@ -47,11 +36,7 @@ function AddTicketModal({ showModal, setShowModal ,refresh,setRefresh}) {
             setLoader(false)
             setErr('Fill all the fields')
         }else {
-            axiosInstance.post('/addTicket',{subject,assignee,description},{
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            }).then(res=>{
+            axiosInstance.post('/addTicket',{subject,assignee,description}).then(res=>{
                 setLoader(false)
                 setAssignee(0)
                 setDescription('')
